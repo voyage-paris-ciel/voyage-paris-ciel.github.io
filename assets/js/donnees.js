@@ -53,7 +53,7 @@ window.VOYAGE = {
       etapes: [
         { heure: "9 h 20", titre: "Départ à pied de l'auberge", texte: "Vers le musée des Arts et Métiers.", statut: "estimation", type: "depart" },
         { trajet: "À pied, environ 23 min" },
-        { heure: "10 h – 11 h 30", titre: "Musée des Arts et Métiers", texte: "Visite guidée « La saga des télécommunications » (1 h 30, 100 € le groupe). Créneau de 10 h proposé par le musée, à réserver à partir du 1er janvier 2027.", statut: "confirmer", type: "visite" },
+        { heure: "10 h – 11 h 30", titre: "Musée des Arts et Métiers", texte: "Visite guidée « La saga des télécommunications » (1 h 30, 100 € le groupe). Créneau de 10 h proposé par le musée, proposé par le musée (réponse du 30/10/2026).", statut: "verifie", type: "visite" },
         { trajet: "Métro vers la Villette, environ 30 min (à vérifier)" },
         { heure: "12 h 30", titre: "Pique-nique au parc de la Villette", statut: "estimation", type: "pause" },
         { heure: "13 h 30 – 17 h", titre: "Cité des sciences", texte: "e-LAB (espace trilingue), Carrefour numérique, Cité des métiers. Forfait groupe de 200 €. Créneau de l'après-midi à réserver en février 2027. Atelier réseaux et cybersécurité à confirmer.", statut: "confirmer", type: "visite" },
@@ -121,8 +121,8 @@ window.VOYAGE = {
       mission: "Construire une frise de 5 inventions vues pendant la visite, avec leur date et leur principe en une phrase.",
       ciel: "Électronique, télécommunications, réseaux.",
       matieres: "Enseignement pro CIEL, maths-sciences, histoire-géographie.",
-      aConfirmer: "Créneau de 10 h le mardi 11 mai pour 30 personnes : formulaire de réservation à renvoyer le 1er janvier 2027.",
-      statut: "confirmer"
+      aConfirmer: "Rien à confirmer : le musée propose bien un créneau de visite guidée à 10 h.",
+      statut: "verifie"
     },
     {
       id: "cite-sciences", nom: "Cité des sciences et de l'industrie", sorte: "visite",
