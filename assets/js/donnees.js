@@ -39,8 +39,8 @@ window.VOYAGE = {
         { heure: "8 h 30", titre: "Départ du lycée en autocar", texte: "Pause de 45 min en route (règle européenne : pause après 4 h 30 de conduite).", statut: "estimation", type: "depart" },
         { trajet: "Autocar, environ 369 km et 3 h 51 de conduite sans pause" },
         { heure: "≈ 13 h 15", titre: "Arrivée près de l'auberge MIJE", texte: "6 rue de Fourcy, Paris 4e. Dépôt des bagages à la consigne (à confirmer pour un groupe), puis pique-nique.", statut: "confirmer", type: "pause" },
-        { trajet: "À pied, environ 14 min" },
-        { heure: "15 h – 16 h", titre: "Notre-Dame de Paris", texte: "Visite libre, sans prise de parole, 1 h maximum à l'intérieur. Angle CIEL : le numérique au service de la reconstruction.", statut: "verifie", type: "visite" },
+        { trajet: "À pied, environ 14 min (départ vers 14 h 20)" },
+        { heure: "15 h – 16 h", titre: "Notre-Dame de Paris", texte: "Visite libre, sans prise de parole, 1 h maximum à l'intérieur. Entrée par la file sans réservation (drapeau bleu sur le parvis), environ 20 min d'attente. Chapelet à 15 h : la visite continue, en silence. Angle CIEL : le numérique au service de la reconstruction.", statut: "verifie", type: "visite" },
         { heure: "16 h 30", titre: "Retour à l'auberge", texte: "Les chambres ouvrent à 15 h ou 15 h 30 selon la source.", statut: "confirmer", type: "pause" },
         { heure: "Soir", titre: "Dîner à l'auberge et débrief", texte: "Demi-pension.", statut: "verifie", type: "pause" }
       ]
@@ -107,7 +107,8 @@ window.VOYAGE = {
       mission: "Repérer 3 éléments de la cathédrale. Après la visite, chercher quel outil numérique a servi pour l'un d'eux (scan 3D, maquette numérique).",
       ciel: "Numérique, données, modélisation 3D, jumeau numérique.",
       matieres: "Enseignement pro CIEL, histoire-géographie.",
-      aConfirmer: "Existence d'un dossier pédagogique de Notre-Dame pour les lycéens.",
+      texte: "Sur place : entrée par la file sans réservation, signalée par un drapeau bleu sur le parvis (environ 20 min d'attente). La visite continue pendant les offices : on reste silencieux.",
+      aConfirmer: "Existence d'un dossier pédagogique de Notre-Dame pour les lycéens (question sans réponse).",
       statut: "verifie"
     },
     {
@@ -115,6 +116,7 @@ window.VOYAGE = {
       quand: "Mardi 11 mai, 10 h – 11 h 30", jour: 2,
       adresse: "60 rue Réaumur, 75003 Paris", acces: "À pied depuis l'auberge, environ 23 min (métro Arts et Métiers, lignes 3 et 11)",
       gps: [48.8663, 2.3555],
+      texte: "Sur place : sacs à dos au vestiaire des groupes, ni nourriture ni boisson dans le musée, pas de photo au flash, on ne touche pas les objets.",
       objectif: "Comprendre l'histoire des télécommunications, du télégraphe aux réseaux actuels.",
       mission: "Construire une frise de 5 inventions vues pendant la visite, avec leur date et leur principe en une phrase.",
       ciel: "Électronique, télécommunications, réseaux.",
@@ -143,7 +145,8 @@ window.VOYAGE = {
       mission: "Dessiner le trajet du son : micro, régie, diffusion. Noter 2 métiers techniques rencontrés.",
       ciel: "Audiovisuel, électronique, chaîne de diffusion.",
       matieres: "Enseignement pro CIEL, maths-sciences (ondes), histoire (architecture).",
-      aConfirmer: "Existence d'une visite plus technique (studios, régie) ; réservations ouvertes le 13 janvier 2027 à 11 h.",
+      texte: "Créneau confirmé par Radio France (jusqu'à 33 participants). La visite passe par au moins un studio de radio.",
+      aConfirmer: "Peut-être une émission enregistrée le jour de la visite (réponse vers mars-avril 2027) ; réservations ouvertes le 13 janvier 2027 à 11 h.",
       statut: "verifie"
     },
     {
