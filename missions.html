@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carnet de mission</title>
+  <meta name="description" content="Le carnet de mission de l'élève : une mission liée à la filière CIEL pour chaque visite du voyage à Paris. Simulation scolaire.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#15233F">
+  <link rel="icon" href="assets/icone.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=2026-11-06c">
+</head>
+<body>
+
+  <div class="simulation" role="note">
+    <div class="conteneur">
+      <strong>Simulation scolaire</strong>
+      <span>Aucune réservation n'a été faite. Les noms et contacts du site sont fictifs.</span>
+    </div>
+  </div>
+
+  <header class="entete">
+    <div class="conteneur">
+      <a class="marque" href="index.html">
+        <span class="pastille" aria-hidden="true">S</span>
+        <span>Voyage à Paris<small>Première Bac Pro CIEL</small></span>
+      </a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+            Accueil</a></li>
+          <li><a href="programme.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><path d="M6 7v10M11 5h9M11 12h9M11 19h9"/><circle cx="6" cy="12" r="2"/></svg>
+            Programme</a></li>
+          <li><a href="lieux.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Lieux</a></li>
+          <li><a href="groupes.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.8 6 5.5"/></svg>
+            Groupes</a></li>
+          <li><a href="missions.html" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 3h6v3H9z"/><path d="M9 4.5H6a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5.5a1 1 0 0 0-1-1h-3"/><path d="M9 14l2 2 4-4"/></svg>
+            Missions</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-titre">
+      <div class="conteneur">
+        <div class="plaque">
+          <span class="plaque-haut">Une mission CIEL par visite</span>
+          <h1>Carnet de mission</h1>
+        </div>
+        <p>Pendant chaque visite, tu as une mission liée à notre filière : numérique, télécoms, électronique. Tu réponds ici, sur ton téléphone, pendant ou juste après la visite. De retour au lycée, ton carnet sert au compte rendu en classe.</p>
+      </div>
+    </div>
+
+    <div class="conteneur">
+      <form class="recherche" id="carnet-code" novalidate>
+        <label for="code-carnet">Ton code élève</label>
+        <p class="recherche-aide" id="code-carnet-aide">Ton code t'est donné par ton professeur. Exemple : E07.</p>
+        <div class="recherche-ligne">
+          <input id="code-carnet" name="code" type="text" inputmode="text" autocomplete="off"
+                 maxlength="3" placeholder="E07" aria-describedby="code-carnet-aide carnet-erreur">
+          <button type="submit">Ouvrir mon carnet</button>
+        </div>
+        <p id="carnet-erreur" class="resultat-erreur" aria-live="polite"></p>
+      </form>
+
+      <section id="carnet" class="carnet" hidden aria-labelledby="carnet-titre">
+        <div class="carnet-entete">
+          <div>
+            <h2 id="carnet-titre">Carnet de E07</h2>
+            <p id="carnet-groupe"></p>
+          </div>
+          <button type="button" class="bouton-carte" id="carnet-changer">Changer de code</button>
+        </div>
+
+        <div class="progression" id="carnet-progression">
+          <p><strong id="carnet-faites">0 / 4</strong> missions remplies</p>
+          <div class="barre" role="progressbar" aria-labelledby="carnet-faites" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0"><span id="carnet-barre"></span></div>
+        </div>
+
+        <div class="missions" id="missions"></div>
+
+        <div class="carnet-actions">
+          <button type="button" class="bouton-plein" id="carnet-telecharger">Télécharger mon carnet</button>
+          <button type="button" class="bouton-carte" id="carnet-effacer">Effacer mes réponses</button>
+          <p class="carnet-sauvegarde" id="carnet-sauvegarde" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <aside class="encart" aria-labelledby="titre-donnees">
+        <h2 id="titre-donnees">Où vont mes réponses ?</h2>
+        <p>Nulle part : elles restent enregistrées dans ton téléphone, dans le navigateur. Rien n'est envoyé sur internet, il n'y a ni compte ni mot de passe, et ton carnet est rangé sous ton code, pas sous ton nom.</p>
+        <p>Pour rendre ton travail, tu appuies sur « Télécharger mon carnet » et tu envoies le fichier à ton professeur.</p>
+        <p>Le site marche aussi sans réseau (dans le métro par exemple), à condition de l'avoir ouvert au moins une fois avant le départ.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <div>
+        <span class="etiquette-gab">Saint Gab'</span>
+        <p><strong>Lycée Saint-Gabriel Saint-Michel</strong>, Saint-Laurent-sur-Sèvre. Projet de la matière « Projet », Première Bac Pro CIEL.</p>
+      </div>
+      <p>Équipe : Sixte, Timéo et Tom. Simulation scolaire : aucune réservation ferme, données de groupes fictives. Mise à jour le 6 novembre 2026.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/donnees.js?v=2026-11-06c"></script>
+  <script src="assets/js/site.js?v=2026-11-06c"></script>
+</body>
+</html>

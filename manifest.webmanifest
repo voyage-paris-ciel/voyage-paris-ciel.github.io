@@ -1,0 +1,14 @@
+{
+  "name": "Voyage à Paris – Première Bac Pro CIEL",
+  "short_name": "Voyage Paris",
+  "description": "Programme, lieux, groupes et carnet de mission du voyage à Paris (simulation scolaire).",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F6F6F3",
+  "theme_color": "#15233F",
+  "icons": [
+    { "src": "assets/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
