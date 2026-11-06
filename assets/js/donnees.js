@@ -38,10 +38,10 @@ window.VOYAGE = {
       etapes: [
         { heure: "8 h 30", titre: "Départ du lycée en autocar", texte: "Pause de 45 min en route (règle européenne : pause après 4 h 30 de conduite).", statut: "estimation", type: "depart" },
         { trajet: "Autocar, environ 369 km et 3 h 51 de conduite sans pause" },
-        { heure: "≈ 13 h 15", titre: "Arrivée près de l'auberge MIJE", texte: "6 rue de Fourcy, Paris 4e. Dépôt des bagages à la consigne (à confirmer pour un groupe), puis pique-nique.", statut: "confirmer", type: "pause" },
+        { heure: "≈ 13 h 15", titre: "Arrivée à l'auberge", texte: "Le MIJE est complet à nos dates (réponse du 06/11/2026) : nouvelle auberge à choisir. Dépôt des bagages à la bagagerie (à confirmer avec la nouvelle auberge), puis pique-nique.", statut: "confirmer", type: "pause" },
         { trajet: "À pied, environ 14 min (départ vers 14 h 20)" },
         { heure: "15 h – 16 h", titre: "Notre-Dame de Paris", texte: "Visite libre, sans prise de parole, 1 h maximum à l'intérieur. Entrée par la file sans réservation (drapeau bleu sur le parvis), environ 20 min d'attente. Chapelet à 15 h : la visite continue, en silence. Angle CIEL : le numérique au service de la reconstruction.", statut: "verifie", type: "visite" },
-        { heure: "16 h 30", titre: "Retour à l'auberge", texte: "Les chambres ouvrent à 15 h ou 15 h 30 selon la source.", statut: "confirmer", type: "pause" },
+        { heure: "16 h 30", titre: "Retour à l'auberge", texte: "Heure d'accès aux chambres à confirmer avec la nouvelle auberge.", statut: "confirmer", type: "pause" },
         { heure: "Soir", titre: "Dîner à l'auberge et débrief", texte: "Demi-pension.", statut: "verifie", type: "pause" }
       ]
     },
@@ -53,10 +53,19 @@ window.VOYAGE = {
       etapes: [
         { heure: "9 h 20", titre: "Départ à pied de l'auberge", texte: "Vers le musée des Arts et Métiers.", statut: "estimation", type: "depart" },
         { trajet: "À pied, environ 23 min" },
-        { heure: "10 h – 11 h 30", titre: "Musée des Arts et Métiers", texte: "Visite guidée « La saga des télécommunications » (1 h 30, 100 € le groupe). Créneau de 10 h proposé par le musée, proposé par le musée (réponse du 30/10/2026).", statut: "verifie", type: "visite" },
+        { heure: "10 h – 11 h 30", titre: "Musée des Arts et Métiers", texte: "Visite guidée « La saga des télécommunications » (1 h 30, 100 € le groupe). Créneau de 10 h proposé par le musée (réponse du 30/10/2026).", statut: "verifie", type: "visite" },
         { trajet: "Métro vers la Villette, environ 30 min (à vérifier)" },
         { heure: "12 h 30", titre: "Pique-nique au parc de la Villette", statut: "estimation", type: "pause" },
-        { heure: "13 h 30 – 17 h", titre: "Cité des sciences", texte: "e-LAB (espace trilingue), Carrefour numérique, Cité des métiers. Forfait groupe de 200 €. Créneau de l'après-midi à réserver en février 2027. Atelier réseaux et cybersécurité à confirmer.", statut: "confirmer", type: "visite" },
+        {
+          heure: "13 h 30 – 17 h", titre: "Cité des sciences",
+          texte: "Billet Expositions pour un groupe de 26 à 40 personnes : 200 €, accompagnateurs inclus (expositions, une animation scientifique, une séance de planétarium). Carrefour numérique² (dès 15 ans, gratuit) et Cité des métiers ouverts le mardi après-midi. Réservation possible seulement 3 mois avant (février 2027).",
+          statut: "verifie", type: "visite",
+          planB: {
+            titre: "Plan B : atelier aux Arts et Métiers l'après-midi",
+            texte: "Si la Cité des sciences n'a pas de créneau : atelier lycée « Si un boulier m'était conté » (2 h 30, 150 € le groupe) au musée des Arts et Métiers. Même objectif : comprendre le numérique, du calcul mécanique aux calculatrices. Horaire à demander au musée.",
+            statut: "verifie"
+          }
+        },
         { trajet: "Métro ligne 7, environ 33 min" },
         { heure: "≈ 17 h 45", titre: "Retour à l'auberge", statut: "estimation", type: "pause" },
         { heure: "Soir", titre: "Dîner et préparation des comptes rendus", statut: "verifie", type: "pause" }
@@ -68,18 +77,13 @@ window.VOYAGE = {
       date: "Mercredi 12 mai 2027",
       titre: "Maison de la Radio et retour",
       etapes: [
-        { heure: "7 h 30", titre: "Petit-déjeuner", texte: "Horaire à confirmer. Les chambres sont libérées avant midi.", statut: "confirmer", type: "pause" },
+        { heure: "7 h 30", titre: "Petit-déjeuner", texte: "Horaire à confirmer avec la nouvelle auberge.", statut: "confirmer", type: "pause" },
         { heure: "8 h 15", titre: "Chargement des bagages dans l'autocar", statut: "estimation", type: "depart" },
         { trajet: "Autocar vers Paris 16e, 38 à 60 min le matin" },
         {
           heure: "10 h – 11 h 30", titre: "Maison de la Radio et de la Musique",
-          texte: "Visite « Histoire et architecture » (1 h 30, 120 € la classe). C'est le seul créneau trouvé ce jour-là.",
-          statut: "verifie", type: "visite",
-          planB: {
-            titre: "Plan B : tour Eiffel",
-            texte: "Si la Maison de la Radio n'est pas réservable. Environ 244 € par les escaliers, 389 € avec ascenseur. Lien CIEL : histoire de la radio et des antennes de diffusion.",
-            statut: "estimation"
-          }
+          texte: "Visite « Histoire et architecture » (1 h 30, 120 € la classe), avec au moins un studio de radio. Créneau confirmé par Radio France le 30/10/2026.",
+          statut: "verifie", type: "visite"
         },
         { heure: "11 h 30 – 12 h", titre: "Départ vers la Vendée", texte: "Pause de 45 min en route.", statut: "estimation", type: "depart" },
         { trajet: "Autocar, environ 3 h 51 de conduite sans pause" },
@@ -91,12 +95,12 @@ window.VOYAGE = {
   // Les lieux (page Lieux). Positions GPS approximatives, pour la carte.
   lieux: [
     {
-      id: "auberge", nom: "Auberge MIJE Fourcy", sorte: "auberge",
+      id: "auberge", nom: "Auberge (à choisir)", sorte: "auberge",
       quand: "Lundi soir au mercredi matin", jour: null,
-      adresse: "6 rue de Fourcy, 75004 Paris", acces: "Métro Saint-Paul (ligne 1) ou Pont Marie (ligne 7)",
+      adresse: "Prévue au MIJE Fourcy, 6 rue de Fourcy, 75004 Paris", acces: "Métro Saint-Paul (ligne 1) ou Pont Marie (ligne 7)",
       gps: [48.8553, 2.3601],
-      texte: "Notre auberge de jeunesse pour les 2 nuits. Chambres non mixtes de 2 à 10 lits, demi-pension (dîner et petit-déjeuner).",
-      statut: "verifie"
+      texte: "Le MIJE nous a répondu le 06/11/2026 : plus de place à nos dates. Une nouvelle auberge est en cours de choix ; les temps de trajet à pied depuis l'auberge seront alors recalculés.",
+      statut: "confirmer"
     },
     {
       id: "notre-dame", nom: "Notre-Dame de Paris", sorte: "visite",
@@ -133,8 +137,9 @@ window.VOYAGE = {
       mission: "Tester une manipulation (e-LAB ou Carrefour numérique) et noter un métier de la Cité des métiers qui t'intéresse, avec la formation à suivre.",
       ciel: "Numérique, réseaux, cybersécurité, orientation après le bac pro (BTS CIEL).",
       matieres: "Enseignement pro CIEL, anglais (e-LAB trilingue, niveau A2), orientation.",
-      aConfirmer: "Réservations ouvertes en février 2027 ; atelier réseaux et cybersécurité pour des lycéens ; contenu du forfait de 200 €.",
-      statut: "confirmer"
+      texte: "Billet Expositions groupe (26 à 40 personnes) : 200 €, accompagnateurs inclus. Carrefour numérique² : ateliers numériques et Fab Lab, dès 15 ans, gratuit.",
+      aConfirmer: "Réservation seulement 3 mois avant (février 2027). Plan B : atelier « Si un boulier m'était conté » aux Arts et Métiers l'après-midi.",
+      statut: "verifie"
     },
     {
       id: "maison-radio", nom: "Maison de la Radio et de la Musique", sorte: "visite",
@@ -148,14 +153,6 @@ window.VOYAGE = {
       texte: "Créneau confirmé par Radio France (jusqu'à 33 participants). La visite passe par au moins un studio de radio.",
       aConfirmer: "Peut-être une émission enregistrée le jour de la visite (réponse vers mars-avril 2027) ; réservations ouvertes le 13 janvier 2027 à 11 h.",
       statut: "verifie"
-    },
-    {
-      id: "tour-eiffel", nom: "Tour Eiffel (plan B)", sorte: "planb",
-      quand: "Mercredi 12 mai, seulement si la Maison de la Radio n'est pas réservable", jour: 3,
-      adresse: "Champ-de-Mars, 75007 Paris", acces: "En autocar depuis l'auberge",
-      gps: [48.8584, 2.2945],
-      texte: "Environ 244 € par groupe par les escaliers, 389 € avec ascenseur. Lien CIEL : histoire de la radio et des antennes de diffusion.",
-      statut: "estimation"
     }
   ],
 
