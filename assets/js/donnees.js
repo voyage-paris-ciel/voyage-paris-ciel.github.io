@@ -109,6 +109,10 @@ window.VOYAGE = {
       gps: [48.8530, 2.3499],
       objectif: "Comprendre comment le numérique aide à reconstruire et à documenter un monument.",
       mission: "Repérer 3 éléments de la cathédrale. Après la visite, chercher quel outil numérique a servi pour l'un d'eux (scan 3D, maquette numérique).",
+      questions: [
+        { id: "nd1", label: "Les 3 éléments de la cathédrale que j'ai repérés" },
+        { id: "nd2", label: "L'outil numérique qui a servi pour l'un d'eux, et à quoi il a servi" }
+      ],
       ciel: "Numérique, données, modélisation 3D, jumeau numérique.",
       matieres: "Enseignement pro CIEL, histoire-géographie.",
       texte: "Sur place : entrée par la file sans réservation, signalée par un drapeau bleu sur le parvis (environ 20 min d'attente). La visite continue pendant les offices : on reste silencieux.",
@@ -123,6 +127,9 @@ window.VOYAGE = {
       texte: "Sur place : sacs à dos au vestiaire des groupes, ni nourriture ni boisson dans le musée, pas de photo au flash, on ne touche pas les objets.",
       objectif: "Comprendre l'histoire des télécommunications, du télégraphe aux réseaux actuels.",
       mission: "Construire une frise de 5 inventions vues pendant la visite, avec leur date et leur principe en une phrase.",
+      questions: [
+        { id: "am1", label: "Ma frise : 5 inventions, avec leur date et leur principe en une phrase", lignes: 7 }
+      ],
       ciel: "Électronique, télécommunications, réseaux.",
       matieres: "Enseignement pro CIEL, maths-sciences, histoire-géographie.",
       aConfirmer: "Rien à confirmer : le musée propose bien un créneau de visite guidée à 10 h.",
@@ -135,6 +142,11 @@ window.VOYAGE = {
       gps: [48.8956, 2.3880],
       objectif: "Découvrir des outils numériques et des métiers du numérique, de l'électronique et des réseaux.",
       mission: "Tester une manipulation (e-LAB ou Carrefour numérique) et noter un métier de la Cité des métiers qui t'intéresse, avec la formation à suivre.",
+      questions: [
+        { id: "cs1", label: "La manipulation que j'ai testée, et ce que j'ai appris" },
+        { id: "cs2", label: "Un métier qui m'intéresse, et la formation pour y arriver" }
+      ],
+      noteMission: "Si on fait le plan B (atelier aux Arts et Métiers), ton professeur te donnera une autre mission.",
       ciel: "Numérique, réseaux, cybersécurité, orientation après le bac pro (BTS CIEL).",
       matieres: "Enseignement pro CIEL, anglais (e-LAB trilingue, niveau A2), orientation.",
       texte: "Billet Expositions groupe (26 à 40 personnes) : 200 €, accompagnateurs inclus. Carrefour numérique² : ateliers numériques et Fab Lab, dès 15 ans, gratuit.",
@@ -148,6 +160,10 @@ window.VOYAGE = {
       gps: [48.8527, 2.2786],
       objectif: "Comprendre comment un programme de radio est produit et diffusé.",
       mission: "Dessiner le trajet du son : micro, régie, diffusion. Noter 2 métiers techniques rencontrés.",
+      questions: [
+        { id: "mr1", label: "Le trajet du son, étape par étape (micro, régie, diffusion)", lignes: 5 },
+        { id: "mr2", label: "2 métiers techniques rencontrés" }
+      ],
       ciel: "Audiovisuel, électronique, chaîne de diffusion.",
       matieres: "Enseignement pro CIEL, maths-sciences (ondes), histoire (architecture).",
       texte: "Créneau confirmé par Radio France (jusqu'à 33 participants). La visite passe par au moins un studio de radio.",

@@ -14,6 +14,37 @@
     return e;
   }
 
+  // « e7 », « E7 » ou « E07 » donnent tous E07 (chaîne vide si le code est mal écrit)
+  function lireCode(valeur) {
+    const brut = valeur.trim().toUpperCase().replace(/^E?0*(\d{1,2})$/, "$1");
+    return /^\d{1,2}$/.test(brut) ? "E" + brut.padStart(2, "0") : "";
+  }
+
+  function groupeDe(code) {
+    return V.groupes.find(function (g) { return g.codes.indexOf(code) !== -1; });
+  }
+
+  // Mémoire du téléphone (localStorage). Peut être bloquée (navigation privée) :
+  // le site marche quand même, il ne garde simplement rien.
+  const memoire = {
+    lire: function (cle, defaut) {
+      try {
+        const v = localStorage.getItem(cle);
+        return v === null ? defaut : JSON.parse(v);
+      } catch (e) { return defaut; }
+    },
+    ecrire: function (cle, valeur) {
+      try { localStorage.setItem(cle, JSON.stringify(valeur)); return true; } catch (e) { return false; }
+    },
+    effacer: function (cle) {
+      try { localStorage.removeItem(cle); } catch (e) { /* rien à faire */ }
+    }
+  };
+
+  function heureCourte(d) {
+    return d.getHours() + " h " + String(d.getMinutes()).padStart(2, "0");
+  }
+
   function badgeStatut(code) {
     const s = V.statuts[code];
     const b = el("span", "statut " + code, s.nom);
@@ -306,12 +337,10 @@
 
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      // « e7 », « E7 » ou « E07 » donnent tous E07
-      const brut = champ.value.trim().toUpperCase().replace(/^E?0*(\d{1,2})$/, "$1");
-      const code = /^\d{1,2}$/.test(brut) ? "E" + brut.padStart(2, "0") : "";
+      const code = lireCode(champ.value);
       resultat.textContent = "";
 
-      const groupe = V.groupes.find(function (g) { return g.codes.indexOf(code) !== -1; });
+      const groupe = groupeDe(code);
       if (!groupe) {
         champ.setAttribute("aria-invalid", "true");
         resultat.appendChild(el("p", "resultat-erreur", "Ce code n'existe pas. Les codes vont de E01 à E27 : vérifie le code donné par ton professeur."));
@@ -321,6 +350,277 @@
       champ.value = code;
       resultat.appendChild(el("p", "resultat-titre", "Tu es dans le " + groupe.nom + "."));
       resultat.appendChild(carteGroupe(groupe, code));
+    });
+  }
+
+  // ---------- Pointage des groupes (accompagnateurs) ----------
+  // Les moments où l'on compte les élèves : chaque départ et chaque visite.
+  const zonePointage = document.getElementById("pointage");
+  if (zonePointage) {
+    const moments = [];
+    V.jours.forEach(function (j) {
+      j.etapes.forEach(function (e, i) {
+        if (e.type === "depart" || e.type === "visite") {
+          moments.push({ id: j.id + "-" + i, texte: "J" + j.numero + " · " + e.heure + " · " + e.titre });
+        }
+      });
+    });
+
+    let groupe = V.groupes[0];
+    let moment = moments[0];
+
+    // Choix du groupe
+    const choixGroupe = el("div", "pointage-groupes");
+    choixGroupe.setAttribute("role", "group");
+    choixGroupe.setAttribute("aria-label", "Groupe");
+    V.groupes.forEach(function (g) {
+      const b = el("button", "pointage-groupe", g.nom);
+      b.type = "button";
+      b.style.setProperty("--couleur-groupe", g.couleur);
+      b.addEventListener("click", function () { groupe = g; afficher(); });
+      b.dataset.groupe = g.id;
+      choixGroupe.appendChild(b);
+    });
+    zonePointage.appendChild(choixGroupe);
+
+    // Choix du moment
+    const etiquette = el("label", "pointage-label", "Moment du voyage");
+    etiquette.htmlFor = "pointage-moment";
+    const liste = el("select", "pointage-moment");
+    liste.id = "pointage-moment";
+    moments.forEach(function (m) {
+      const o = el("option", "", m.texte);
+      o.value = m.id;
+      liste.appendChild(o);
+    });
+    liste.addEventListener("change", function () {
+      moment = moments.find(function (m) { return m.id === liste.value; });
+      afficher();
+    });
+    zonePointage.appendChild(etiquette);
+    zonePointage.appendChild(liste);
+
+    // Les codes à cocher, le compteur et la remise à zéro
+    const grille = el("ul", "pointage-codes");
+    grille.setAttribute("aria-label", "Élèves présents");
+    const compteur = el("p", "pointage-compteur");
+    compteur.setAttribute("aria-live", "polite");
+    const raz = el("button", "bouton-carte", "Tout décocher");
+    raz.type = "button";
+    zonePointage.appendChild(grille);
+    zonePointage.appendChild(compteur);
+    zonePointage.appendChild(raz);
+    zonePointage.appendChild(el("p", "pointage-note",
+      "Le pointage reste dans le téléphone de l'accompagnateur. Il marche sans réseau, et ne contient que des codes."));
+
+    function cle() { return "pointage:" + groupe.id + ":" + moment.id; }
+
+    function afficher() {
+      const presents = memoire.lire(cle(), []);
+      zonePointage.style.setProperty("--couleur-groupe", groupe.couleur);
+      choixGroupe.querySelectorAll("button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.groupe === groupe.id));
+      });
+
+      grille.textContent = "";
+      groupe.codes.forEach(function (c) {
+        const li = el("li");
+        const b = el("button", "pointage-code", c);
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(presents.indexOf(c) !== -1));
+        b.addEventListener("click", function () {
+          const liste = memoire.lire(cle(), []);
+          const pos = liste.indexOf(c);
+          if (pos === -1) liste.push(c); else liste.splice(pos, 1);
+          memoire.ecrire(cle(), liste);
+          afficher();
+        });
+        li.appendChild(b);
+        grille.appendChild(li);
+      });
+
+      const manquent = groupe.codes.filter(function (c) { return presents.indexOf(c) === -1; });
+      const total = groupe.codes.length;
+      compteur.textContent = "";
+      compteur.classList.toggle("complet", manquent.length === 0);
+      compteur.appendChild(el("strong", "", (total - manquent.length) + " / " + total + " présents"));
+      compteur.appendChild(document.createTextNode(
+        manquent.length === 0 ? " : groupe complet, on peut partir."
+          : " : il manque " + manquent.join(", ") + "."));
+    }
+
+    raz.addEventListener("click", function () { memoire.effacer(cle()); afficher(); });
+    afficher();
+  }
+
+  // ---------- Carnet de mission (élève) ----------
+  const zoneMissions = document.getElementById("missions");
+  if (zoneMissions) {
+    const lieuxMission = V.lieux.filter(function (l) { return l.questions; });
+    const formCode = document.getElementById("carnet-code");
+    const champCode = document.getElementById("code-carnet");
+    const erreur = document.getElementById("carnet-erreur");
+    const carnet = document.getElementById("carnet");
+    const info = document.getElementById("carnet-sauvegarde");
+    const boutonEffacer = document.getElementById("carnet-effacer");
+    let code = "";
+    let reponses = {};
+    let attenteEffacer = null;
+
+    function mission_faite(l) {
+      return l.questions.every(function (q) { return (reponses[q.id] || "").trim() !== ""; });
+    }
+
+    function majProgression() {
+      const faites = lieuxMission.filter(mission_faite).length;
+      document.getElementById("carnet-faites").textContent = faites + " / " + lieuxMission.length;
+      document.getElementById("carnet-barre").style.width = (100 * faites / lieuxMission.length) + "%";
+      const barre = carnet.querySelector(".barre");
+      barre.setAttribute("aria-valuemax", lieuxMission.length);
+      barre.setAttribute("aria-valuenow", faites);
+      lieuxMission.forEach(function (l) {
+        document.getElementById("etat-" + l.id).hidden = !mission_faite(l);
+      });
+    }
+
+    function ouvrir(nouveauCode) {
+      code = nouveauCode;
+      const g = groupeDe(code);
+      reponses = memoire.lire("carnet:" + code, {});
+      memoire.ecrire("carnet:code", code);
+      document.getElementById("carnet-titre").textContent = "Carnet de " + code;
+      document.getElementById("carnet-groupe").textContent = g.nom + " · référent : " + g.referent;
+
+      zoneMissions.textContent = "";
+      lieuxMission.forEach(function (l) {
+        const art = el("article", "fiche carte-mission");
+        const ent = el("div", "fiche-entete");
+        ent.appendChild(el("span", "pastille j" + l.jour, "J" + l.jour));
+        const t = el("div");
+        t.appendChild(el("h3", "", l.nom));
+        t.appendChild(el("p", "", l.quand));
+        ent.appendChild(t);
+        art.appendChild(ent);
+
+        const m = el("div", "mission");
+        m.appendChild(el("h4", "", "Ta mission"));
+        m.appendChild(el("p", "", l.mission));
+        if (l.ciel) m.appendChild(el("p", "mission-ciel", "Lien CIEL : " + l.ciel));
+        art.appendChild(m);
+        if (l.noteMission) art.appendChild(el("p", "fiche-question", l.noteMission));
+
+        l.questions.forEach(function (q) {
+          const champ = el("div", "champ");
+          const lab = el("label", "", q.label);
+          lab.htmlFor = "q-" + q.id;
+          const zone = el("textarea");
+          zone.id = "q-" + q.id;
+          zone.rows = q.lignes || 3;
+          zone.value = reponses[q.id] || "";
+          zone.addEventListener("input", function () {
+            reponses[q.id] = zone.value;
+            const ok = memoire.ecrire("carnet:" + code, reponses);
+            info.textContent = ok
+              ? "Enregistré sur ce téléphone à " + heureCourte(new Date()) + "."
+              : "Attention : ce navigateur n'enregistre pas (navigation privée ?). Télécharge ton carnet avant de fermer la page.";
+            majProgression();
+          });
+          champ.appendChild(lab);
+          champ.appendChild(zone);
+          art.appendChild(champ);
+        });
+
+        const etat = el("p", "mission-faite", "Mission remplie");
+        etat.id = "etat-" + l.id;
+        etat.hidden = true;
+        art.appendChild(etat);
+        zoneMissions.appendChild(art);
+      });
+
+      info.textContent = "";
+      formCode.hidden = true;
+      carnet.hidden = false;
+      majProgression();
+    }
+
+    formCode.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      const c = lireCode(champCode.value);
+      if (!groupeDe(c)) {
+        champCode.setAttribute("aria-invalid", "true");
+        erreur.textContent = "Ce code n'existe pas. Les codes vont de E01 à E27 : vérifie le code donné par ton professeur.";
+        return;
+      }
+      champCode.removeAttribute("aria-invalid");
+      erreur.textContent = "";
+      ouvrir(c);
+      document.getElementById("carnet-titre").focus();
+    });
+
+    document.getElementById("carnet-changer").addEventListener("click", function () {
+      memoire.effacer("carnet:code");
+      carnet.hidden = true;
+      formCode.hidden = false;
+      champCode.value = "";
+      champCode.focus();
+    });
+
+    // Fichier texte à envoyer au professeur après le voyage
+    document.getElementById("carnet-telecharger").addEventListener("click", function () {
+      const g = groupeDe(code);
+      const lignes = [
+        "Carnet de mission - Voyage à Paris du 10 au 12 mai 2027 (simulation scolaire)",
+        "Première Bac Pro CIEL - Lycée Saint-Gabriel Saint-Michel",
+        "Code élève : " + code + " - " + g.nom,
+        ""
+      ];
+      lieuxMission.forEach(function (l) {
+        lignes.push("== " + l.nom + " (" + l.quand + ")");
+        lignes.push("Mission : " + l.mission);
+        l.questions.forEach(function (q) {
+          lignes.push("", "> " + q.label, (reponses[q.id] || "").trim() || "(pas de réponse)");
+        });
+        lignes.push("", "");
+      });
+      const fichier = new Blob(["﻿" + lignes.join("\r\n")], { type: "text/plain;charset=utf-8" });
+      const lien = el("a");
+      lien.href = URL.createObjectURL(fichier);
+      lien.download = "carnet-mission-" + code + ".txt";
+      document.body.appendChild(lien);
+      lien.click();
+      lien.remove();
+      setTimeout(function () { URL.revokeObjectURL(lien.href); }, 1000);
+    });
+
+    // Effacer en deux appuis, pour éviter les erreurs
+    boutonEffacer.addEventListener("click", function () {
+      if (!attenteEffacer) {
+        boutonEffacer.textContent = "Appuie encore pour tout effacer";
+        attenteEffacer = setTimeout(function () {
+          attenteEffacer = null;
+          boutonEffacer.textContent = "Effacer mes réponses";
+        }, 4000);
+        return;
+      }
+      clearTimeout(attenteEffacer);
+      attenteEffacer = null;
+      boutonEffacer.textContent = "Effacer mes réponses";
+      memoire.effacer("carnet:" + code);
+      ouvrir(code);
+      info.textContent = "Réponses effacées.";
+    });
+
+    document.getElementById("carnet-titre").tabIndex = -1;
+    const dernierCode = memoire.lire("carnet:code", "");
+    if (groupeDe(dernierCode)) ouvrir(dernierCode);
+  }
+
+  // ---------- Mode hors connexion ----------
+  // Le « service worker » garde une copie du site dans le téléphone :
+  // les pages s'ouvrent même sans réseau (métro, sous-sol d'un musée).
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () { /* le site marche aussi sans */ });
     });
   }
 
