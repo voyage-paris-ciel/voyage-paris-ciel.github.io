@@ -602,6 +602,104 @@ button, input { font: inherit; }
 .encart p { margin: 0 0 0.6rem; }
 .encart p:last-child { margin-bottom: 0; }
 
+/* ---------- Pointage des groupes ---------- */
+
+.pointage {
+  --couleur-groupe: var(--encre);
+  background: var(--blanc); border: 1px solid var(--joint);
+  border-top: 8px solid var(--couleur-groupe);
+  border-radius: 12px; padding: 1.25rem;
+  max-width: 40rem;
+}
+.pointage-groupes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.pointage-groupe {
+  border: 2px solid var(--couleur-groupe); background: var(--blanc); color: var(--couleur-groupe);
+  border-radius: 999px; padding: 0.35rem 1rem; font-weight: 700; cursor: pointer;
+}
+.pointage-groupe[aria-pressed="true"] { background: var(--couleur-groupe); color: var(--blanc); }
+.pointage-label { display: block; font-weight: 700; color: var(--zinc); margin-bottom: 0.3rem; }
+.pointage-moment {
+  width: 100%; padding: 0.55rem 0.7rem; font: inherit;
+  border: 2px solid var(--encre); border-radius: 8px; background: var(--blanc); color: var(--encre);
+}
+.pointage-codes {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr)); gap: 0.5rem;
+  margin: 1rem 0; padding: 0; list-style: none;
+}
+.pointage-code {
+  width: 100%; min-height: 3rem;
+  border: 2px solid var(--joint); border-radius: 8px; background: var(--faience); color: var(--encre);
+  font-family: var(--titre); font-weight: 750; font-size: 1.15rem; cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.pointage-code[aria-pressed="true"] {
+  background: var(--couleur-groupe); border-color: var(--couleur-groupe); color: var(--blanc);
+}
+.pointage-code[aria-pressed="true"]::before { content: "✓ "; }
+.pointage-compteur {
+  margin: 0 0 0.75rem; padding: 0.6rem 0.8rem; border-radius: 8px;
+  background: #FFF4DC; border-left: 6px solid var(--ambre);
+}
+.pointage-compteur.complet { background: #E5F4E4; border-left-color: var(--s-verifie); }
+.pointage-note { margin: 0.75rem 0 0; color: var(--zinc); font-size: 0.9375rem; }
+
+/* ---------- Carnet de mission ---------- */
+
+.carnet { margin-top: 0.5rem; }
+.carnet-entete {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem;
+}
+.carnet-entete h2 {
+  margin: 0; font-family: var(--titre); font-weight: 750; font-stretch: 80%;
+  font-size: clamp(1.6rem, 4vw, 2.25rem); line-height: 1.1;
+}
+.carnet-entete p { margin: 0.15rem 0 0; color: var(--zinc); font-weight: 700; }
+
+.progression { margin: 1rem 0 1.5rem; max-width: 40rem; }
+.progression p { margin: 0 0 0.4rem; }
+.barre { height: 12px; border-radius: 6px; background: var(--joint); overflow: hidden; }
+.barre span { display: block; height: 100%; width: 0; background: var(--s-verifie); transition: width 0.3s; }
+
+.missions {
+  display: grid; gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 26rem), 1fr));
+}
+.carte-mission h3 {
+  margin: 0; font-family: var(--titre); font-weight: 750; font-stretch: 80%;
+  font-size: 1.4rem; line-height: 1.1;
+}
+.carte-mission .fiche-entete p { margin: 0.15rem 0 0; color: var(--zinc); font-weight: 700; font-size: 0.9375rem; }
+.mission h4 { margin: 0; font-family: var(--titre); font-weight: 750; font-stretch: 85%; font-size: 1.1rem; color: var(--gab-fonce); }
+.mission .mission-ciel { margin: 0; font-size: 0.9375rem; color: var(--zinc); }
+
+.champ label { display: block; font-weight: 700; margin-bottom: 0.3rem; }
+.champ textarea {
+  width: 100%; padding: 0.6rem 0.7rem; font: inherit; resize: vertical;
+  border: 2px solid var(--joint); border-radius: 8px; background: var(--faience); color: var(--encre);
+}
+.champ textarea:focus { border-color: var(--encre); background: var(--blanc); }
+.mission-faite {
+  margin: 0; color: var(--s-verifie); font-weight: 700;
+}
+.mission-faite::before { content: "✓ "; }
+
+.carnet-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+.bouton-plein {
+  border: none; border-radius: 999px; padding: 0.55rem 1.2rem;
+  background: var(--gab); color: var(--blanc); font-weight: 700; cursor: pointer;
+}
+.bouton-plein:hover { background: var(--gab-fonce); }
+.carnet-sauvegarde { margin: 0; flex-basis: 100%; color: var(--zinc); font-size: 0.9375rem; }
+.carnet-sauvegarde:empty { display: none; }
+#carnet-erreur { margin-top: 0.75rem; }
+#carnet-erreur:empty { display: none; }
+
+button, input, select, textarea { font: inherit; }
+[hidden] { display: none !important; }
+
 /* ---------- Pied de page ---------- */
 
 .pied {
