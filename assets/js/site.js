@@ -233,13 +233,6 @@
       if (l.matieres) ligneInfo(dl, "Matières", l.matieres);
       art.appendChild(dl);
 
-      if (l.mission) {
-        const m = el("div", "mission");
-        m.appendChild(el("h3", "", "Ta mission"));
-        m.appendChild(el("p", "", l.mission));
-        m.appendChild(badgeStatut("proposition"));
-        art.appendChild(m);
-      }
       if (l.aConfirmer) art.appendChild(el("p", "fiche-question", "À confirmer : " + l.aConfirmer));
 
       const pied = el("div", "fiche-pied");
@@ -353,106 +346,6 @@
     });
   }
 
-  // ---------- Pointage des groupes (accompagnateurs) ----------
-  // Les moments où l'on compte les élèves : chaque départ et chaque visite.
-  const zonePointage = document.getElementById("pointage");
-  if (zonePointage) {
-    const moments = [];
-    V.jours.forEach(function (j) {
-      j.etapes.forEach(function (e, i) {
-        if (e.type === "depart" || e.type === "visite") {
-          moments.push({ id: j.id + "-" + i, texte: "J" + j.numero + " · " + e.heure + " · " + e.titre });
-        }
-      });
-    });
-
-    let groupe = V.groupes[0];
-    let moment = moments[0];
-
-    // Choix du groupe
-    const choixGroupe = el("div", "pointage-groupes");
-    choixGroupe.setAttribute("role", "group");
-    choixGroupe.setAttribute("aria-label", "Groupe");
-    V.groupes.forEach(function (g) {
-      const b = el("button", "pointage-groupe", g.nom);
-      b.type = "button";
-      b.style.setProperty("--couleur-groupe", g.couleur);
-      b.addEventListener("click", function () { groupe = g; afficher(); });
-      b.dataset.groupe = g.id;
-      choixGroupe.appendChild(b);
-    });
-    zonePointage.appendChild(choixGroupe);
-
-    // Choix du moment
-    const etiquette = el("label", "pointage-label", "Moment du voyage");
-    etiquette.htmlFor = "pointage-moment";
-    const liste = el("select", "pointage-moment");
-    liste.id = "pointage-moment";
-    moments.forEach(function (m) {
-      const o = el("option", "", m.texte);
-      o.value = m.id;
-      liste.appendChild(o);
-    });
-    liste.addEventListener("change", function () {
-      moment = moments.find(function (m) { return m.id === liste.value; });
-      afficher();
-    });
-    zonePointage.appendChild(etiquette);
-    zonePointage.appendChild(liste);
-
-    // Les codes à cocher, le compteur et la remise à zéro
-    const grille = el("ul", "pointage-codes");
-    grille.setAttribute("aria-label", "Élèves présents");
-    const compteur = el("p", "pointage-compteur");
-    compteur.setAttribute("aria-live", "polite");
-    const raz = el("button", "bouton-carte", "Tout décocher");
-    raz.type = "button";
-    zonePointage.appendChild(grille);
-    zonePointage.appendChild(compteur);
-    zonePointage.appendChild(raz);
-    zonePointage.appendChild(el("p", "pointage-note",
-      "Le pointage reste dans le téléphone de l'accompagnateur. Il marche sans réseau, et ne contient que des codes."));
-
-    function cle() { return "pointage:" + groupe.id + ":" + moment.id; }
-
-    function afficher() {
-      const presents = memoire.lire(cle(), []);
-      zonePointage.style.setProperty("--couleur-groupe", groupe.couleur);
-      choixGroupe.querySelectorAll("button").forEach(function (b) {
-        b.setAttribute("aria-pressed", String(b.dataset.groupe === groupe.id));
-      });
-
-      grille.textContent = "";
-      groupe.codes.forEach(function (c) {
-        const li = el("li");
-        const b = el("button", "pointage-code", c);
-        b.type = "button";
-        b.setAttribute("aria-pressed", String(presents.indexOf(c) !== -1));
-        b.addEventListener("click", function () {
-          const liste = memoire.lire(cle(), []);
-          const pos = liste.indexOf(c);
-          if (pos === -1) liste.push(c); else liste.splice(pos, 1);
-          memoire.ecrire(cle(), liste);
-          afficher();
-        });
-        li.appendChild(b);
-        grille.appendChild(li);
-      });
-
-      const manquent = groupe.codes.filter(function (c) { return presents.indexOf(c) === -1; });
-      const total = groupe.codes.length;
-      compteur.textContent = "";
-      compteur.classList.toggle("complet", manquent.length === 0);
-      compteur.appendChild(el("strong", "", (total - manquent.length) + " / " + total + " présents"));
-      compteur.appendChild(document.createTextNode(
-        manquent.length === 0 ? " : groupe complet, on peut partir."
-          : " : il manque " + manquent.join(", ") + "."));
-    }
-
-    raz.addEventListener("click", function () { memoire.effacer(cle()); afficher(); });
-    afficher();
-  }
-
   // ---------- Carnet de mission (élève) ----------
   const zoneMissions = document.getElementById("missions");
   if (zoneMissions) {
@@ -467,6 +360,12 @@
     let reponses = {};
     let attenteEffacer = null;
 
+    // Une mission se débloque le jour de la visite, 1 h avant (champ « ouverture »).
+    // Pour la présenter à l'oral : ajouter ?demo à l'adresse (missions.html?demo).
+    const demo = /[?&]demo\b/.test(location.search);
+    function ouverte(l) { return demo || !l.ouverture || new Date() >= new Date(l.ouverture); }
+    function nbOuvertes() { return lieuxMission.filter(ouverte).length; }
+
     function mission_faite(l) {
       return l.questions.every(function (q) { return (reponses[q.id] || "").trim() !== ""; });
     }
@@ -479,7 +378,8 @@
       barre.setAttribute("aria-valuemax", lieuxMission.length);
       barre.setAttribute("aria-valuenow", faites);
       lieuxMission.forEach(function (l) {
-        document.getElementById("etat-" + l.id).hidden = !mission_faite(l);
+        const etat = document.getElementById("etat-" + l.id);
+        if (etat) etat.hidden = !mission_faite(l);
       });
     }
 
@@ -492,8 +392,12 @@
       document.getElementById("carnet-groupe").textContent = g.nom + " · référent : " + g.referent;
 
       zoneMissions.textContent = "";
+      if (demo) {
+        zoneMissions.appendChild(el("p", "demo",
+          "Mode démonstration : toutes les missions sont ouvertes pour la présentation. Pendant le voyage, chacune se débloque le jour de sa visite."));
+      }
       lieuxMission.forEach(function (l) {
-        const art = el("article", "fiche carte-mission");
+        const art = el("article", "fiche carte-mission" + (ouverte(l) ? "" : " verrouillee"));
         const ent = el("div", "fiche-entete");
         ent.appendChild(el("span", "pastille j" + l.jour, "J" + l.jour));
         const t = el("div");
@@ -501,6 +405,15 @@
         t.appendChild(el("p", "", l.quand));
         ent.appendChild(t);
         art.appendChild(ent);
+
+        if (!ouverte(l)) {
+          const v = el("div", "verrou");
+          v.appendChild(el("p", "verrou-titre", "Mission verrouillée"));
+          v.appendChild(el("p", "", "Elle se débloque le " + l.ouvertureTexte + ", 1 h avant la visite. Reviens sur cette page ce jour-là."));
+          art.appendChild(v);
+          zoneMissions.appendChild(art);
+          return;
+        }
 
         const m = el("div", "mission");
         m.appendChild(el("h4", "", "Ta mission"));
@@ -576,13 +489,17 @@
       ];
       lieuxMission.forEach(function (l) {
         lignes.push("== " + l.nom + " (" + l.quand + ")");
+        if (!ouverte(l)) {
+          lignes.push("Mission pas encore débloquée (elle s'ouvre le " + l.ouvertureTexte + ").", "", "");
+          return;
+        }
         lignes.push("Mission : " + l.mission);
         l.questions.forEach(function (q) {
           lignes.push("", "> " + q.label, (reponses[q.id] || "").trim() || "(pas de réponse)");
         });
         lignes.push("", "");
       });
-      const fichier = new Blob(["﻿" + lignes.join("\r\n")], { type: "text/plain;charset=utf-8" });
+      const fichier = new Blob(["\ufeff" + lignes.join("\r\n")], { type: "text/plain;charset=utf-8" });
       const lien = el("a");
       lien.href = URL.createObjectURL(fichier);
       lien.download = "carnet-mission-" + code + ".txt";
@@ -613,6 +530,15 @@
     document.getElementById("carnet-titre").tabIndex = -1;
     const dernierCode = memoire.lire("carnet:code", "");
     if (groupeDe(dernierCode)) ouvrir(dernierCode);
+
+    // Si la page reste ouverte, une mission qui vient de se débloquer apparaît toute seule
+    let ouvertesAvant = nbOuvertes();
+    setInterval(function () {
+      if (nbOuvertes() !== ouvertesAvant) {
+        ouvertesAvant = nbOuvertes();
+        if (code && !carnet.hidden) ouvrir(code);
+      }
+    }, 60000);
   }
 
   // ---------- Mode hors connexion ----------

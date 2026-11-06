@@ -92,13 +92,14 @@ window.VOYAGE = {
     }
   ],
 
-  // Les lieux (page Lieux). Positions GPS approximatives, pour la carte.
+  // Les lieux (page Lieux). Positions GPS de l'entrée, prises dans la Base Adresse Nationale
+  // (api-adresse.data.gouv.fr, vérifié le 06/11/2026). « ouverture » = quand la mission se débloque.
   lieux: [
     {
       id: "auberge", nom: "Auberge (à choisir)", sorte: "auberge",
       quand: "Lundi soir au mercredi matin", jour: null,
       adresse: "Prévue au MIJE Fourcy, 6 rue de Fourcy, 75004 Paris", acces: "Métro Saint-Paul (ligne 1) ou Pont Marie (ligne 7)",
-      gps: [48.8553, 2.3601],
+      gps: [48.854769, 2.359165],
       texte: "Le MIJE nous a répondu le 06/11/2026 : plus de place à nos dates. Une nouvelle auberge est en cours de choix ; les temps de trajet à pied depuis l'auberge seront alors recalculés.",
       statut: "confirmer"
     },
@@ -106,9 +107,10 @@ window.VOYAGE = {
       id: "notre-dame", nom: "Notre-Dame de Paris", sorte: "visite",
       quand: "Lundi 10 mai, 15 h – 16 h", jour: 1,
       adresse: "Parvis Notre-Dame, 75004 Paris", acces: "À pied depuis l'auberge, environ 14 min",
-      gps: [48.8530, 2.3499],
+      gps: [48.853206, 2.348700],
       objectif: "Comprendre comment le numérique aide à reconstruire et à documenter un monument.",
       mission: "Repérer 3 éléments de la cathédrale. Après la visite, chercher quel outil numérique a servi pour l'un d'eux (scan 3D, maquette numérique).",
+      ouverture: "2027-05-10T14:00:00+02:00", ouvertureTexte: "lundi 10 mai à 14 h",
       questions: [
         { id: "nd1", label: "Les 3 éléments de la cathédrale que j'ai repérés" },
         { id: "nd2", label: "L'outil numérique qui a servi pour l'un d'eux, et à quoi il a servi" }
@@ -116,32 +118,32 @@ window.VOYAGE = {
       ciel: "Numérique, données, modélisation 3D, jumeau numérique.",
       matieres: "Enseignement pro CIEL, histoire-géographie.",
       texte: "Sur place : entrée par la file sans réservation, signalée par un drapeau bleu sur le parvis (environ 20 min d'attente). La visite continue pendant les offices : on reste silencieux.",
-      aConfirmer: "Existence d'un dossier pédagogique de Notre-Dame pour les lycéens (question sans réponse).",
       statut: "verifie"
     },
     {
       id: "arts-metiers", nom: "Musée des Arts et Métiers", sorte: "visite",
       quand: "Mardi 11 mai, 10 h – 11 h 30", jour: 2,
-      adresse: "60 rue Réaumur, 75003 Paris", acces: "À pied depuis l'auberge, environ 23 min (métro Arts et Métiers, lignes 3 et 11)",
-      gps: [48.8663, 2.3555],
+      adresse: "60 rue Réaumur, 75003 Paris", acces: "À pied depuis l'auberge, environ 23 min",
+      gps: [48.865711, 2.355422],
       texte: "Sur place : sacs à dos au vestiaire des groupes, ni nourriture ni boisson dans le musée, pas de photo au flash, on ne touche pas les objets.",
       objectif: "Comprendre l'histoire des télécommunications, du télégraphe aux réseaux actuels.",
       mission: "Construire une frise de 5 inventions vues pendant la visite, avec leur date et leur principe en une phrase.",
+      ouverture: "2027-05-11T09:00:00+02:00", ouvertureTexte: "mardi 11 mai à 9 h",
       questions: [
         { id: "am1", label: "Ma frise : 5 inventions, avec leur date et leur principe en une phrase", lignes: 7 }
       ],
       ciel: "Électronique, télécommunications, réseaux.",
       matieres: "Enseignement pro CIEL, maths-sciences, histoire-géographie.",
-      aConfirmer: "Rien à confirmer : le musée propose bien un créneau de visite guidée à 10 h.",
       statut: "verifie"
     },
     {
       id: "cite-sciences", nom: "Cité des sciences et de l'industrie", sorte: "visite",
       quand: "Mardi 11 mai, 13 h 30 – 17 h", jour: 2,
       adresse: "30 avenue Corentin-Cariou, 75019 Paris", acces: "Métro Porte de la Villette (ligne 7)",
-      gps: [48.8956, 2.3880],
+      gps: [48.897240, 2.385575],
       objectif: "Découvrir des outils numériques et des métiers du numérique, de l'électronique et des réseaux.",
       mission: "Tester une manipulation (e-LAB ou Carrefour numérique) et noter un métier de la Cité des métiers qui t'intéresse, avec la formation à suivre.",
+      ouverture: "2027-05-11T12:30:00+02:00", ouvertureTexte: "mardi 11 mai à 12 h 30",
       questions: [
         { id: "cs1", label: "La manipulation que j'ai testée, et ce que j'ai appris" },
         { id: "cs2", label: "Un métier qui m'intéresse, et la formation pour y arriver" }
@@ -157,9 +159,10 @@ window.VOYAGE = {
       id: "maison-radio", nom: "Maison de la Radio et de la Musique", sorte: "visite",
       quand: "Mercredi 12 mai, 10 h – 11 h 30", jour: 3,
       adresse: "116 avenue du Président-Kennedy, 75016 Paris", acces: "En autocar depuis l'auberge, 38 à 60 min",
-      gps: [48.8527, 2.2786],
+      gps: [48.852149, 2.279529],
       objectif: "Comprendre comment un programme de radio est produit et diffusé.",
       mission: "Dessiner le trajet du son : micro, régie, diffusion. Noter 2 métiers techniques rencontrés.",
+      ouverture: "2027-05-12T09:00:00+02:00", ouvertureTexte: "mercredi 12 mai à 9 h",
       questions: [
         { id: "mr1", label: "Le trajet du son, étape par étape (micro, régie, diffusion)", lignes: 5 },
         { id: "mr2", label: "2 métiers techniques rencontrés" }
