@@ -58,8 +58,8 @@ window.VOYAGE = {
         { heure: "12 h 30", titre: "Pique-nique au parc de la Villette", statut: "estimation", type: "pause" },
         {
           heure: "13 h 30 – 17 h", titre: "Cité des sciences",
-          texte: "Billet Expositions pour un groupe de 26 à 40 personnes : 200 €, accompagnateurs inclus (expositions, une animation scientifique, une séance de planétarium). Carrefour numérique² (dès 15 ans, gratuit) et Cité des métiers ouverts le mardi après-midi. Réservation possible seulement 3 mois avant (février 2027).",
-          statut: "verifie", type: "visite",
+          texte: "Réservation possible seulement 3 mois avant (février 2027). Billet Expositions pour un groupe de 26 à 40 personnes : 200 €, accompagnateurs inclus (expositions, une animation scientifique, une séance de planétarium). Carrefour numérique² (dès 15 ans, gratuit) et Cité des métiers ouverts le mardi après-midi.",
+          statut: "confirmer", type: "visite",
           planB: {
             titre: "Plan B : atelier aux Arts et Métiers l'après-midi",
             texte: "Si la Cité des sciences n'a pas de créneau : atelier lycée « Si un boulier m'était conté » (2 h 30, 150 € le groupe) au musée des Arts et Métiers. Même objectif : comprendre le numérique, du calcul mécanique aux calculatrices. Horaire à demander au musée.",
@@ -138,8 +138,8 @@ window.VOYAGE = {
       ciel: "Numérique, réseaux, cybersécurité, orientation après le bac pro (BTS CIEL).",
       matieres: "Enseignement pro CIEL, anglais (e-LAB trilingue, niveau A2), orientation.",
       texte: "Billet Expositions groupe (26 à 40 personnes) : 200 €, accompagnateurs inclus. Carrefour numérique² : ateliers numériques et Fab Lab, dès 15 ans, gratuit.",
-      aConfirmer: "Réservation seulement 3 mois avant (février 2027). Plan B : atelier « Si un boulier m'était conté » aux Arts et Métiers l'après-midi.",
-      statut: "verifie"
+      aConfirmer: "Réservation possible seulement 3 mois avant (février 2027). Plan B : atelier « Si un boulier m'était conté » aux Arts et Métiers l'après-midi.",
+      statut: "confirmer"
     },
     {
       id: "maison-radio", nom: "Maison de la Radio et de la Musique", sorte: "visite",
