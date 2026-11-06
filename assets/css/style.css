@@ -602,50 +602,31 @@ button, input { font: inherit; }
 .encart p { margin: 0 0 0.6rem; }
 .encart p:last-child { margin-bottom: 0; }
 
-/* ---------- Pointage des groupes ---------- */
-
-.pointage {
-  --couleur-groupe: var(--encre);
-  background: var(--blanc); border: 1px solid var(--joint);
-  border-top: 8px solid var(--couleur-groupe);
-  border-radius: 12px; padding: 1.25rem;
-  max-width: 40rem;
-}
-.pointage-groupes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-.pointage-groupe {
-  border: 2px solid var(--couleur-groupe); background: var(--blanc); color: var(--couleur-groupe);
-  border-radius: 999px; padding: 0.35rem 1rem; font-weight: 700; cursor: pointer;
-}
-.pointage-groupe[aria-pressed="true"] { background: var(--couleur-groupe); color: var(--blanc); }
-.pointage-label { display: block; font-weight: 700; color: var(--zinc); margin-bottom: 0.3rem; }
-.pointage-moment {
-  width: 100%; padding: 0.55rem 0.7rem; font: inherit;
-  border: 2px solid var(--encre); border-radius: 8px; background: var(--blanc); color: var(--encre);
-}
-.pointage-codes {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr)); gap: 0.5rem;
-  margin: 1rem 0; padding: 0; list-style: none;
-}
-.pointage-code {
-  width: 100%; min-height: 3rem;
-  border: 2px solid var(--joint); border-radius: 8px; background: var(--faience); color: var(--encre);
-  font-family: var(--titre); font-weight: 750; font-size: 1.15rem; cursor: pointer;
-  font-variant-numeric: tabular-nums;
-}
-.pointage-code[aria-pressed="true"] {
-  background: var(--couleur-groupe); border-color: var(--couleur-groupe); color: var(--blanc);
-}
-.pointage-code[aria-pressed="true"]::before { content: "✓ "; }
-.pointage-compteur {
-  margin: 0 0 0.75rem; padding: 0.6rem 0.8rem; border-radius: 8px;
-  background: #FFF4DC; border-left: 6px solid var(--ambre);
-}
-.pointage-compteur.complet { background: #E5F4E4; border-left-color: var(--s-verifie); }
-.pointage-note { margin: 0.75rem 0 0; color: var(--zinc); font-size: 0.9375rem; }
-
 /* ---------- Carnet de mission ---------- */
 
 .carnet { margin-top: 0.5rem; }
+
+/* mission pas encore débloquée */
+.carte-mission.verrouillee { background: var(--faience); border-style: dashed; }
+.verrou {
+  border-left: 6px solid var(--zinc); background: var(--blanc);
+  padding: 0.75rem 1rem 0.85rem; border-radius: 0 8px 8px 0;
+}
+.verrou p { margin: 0.2rem 0 0; }
+.verrou .verrou-titre {
+  margin: 0; display: flex; align-items: center; gap: 0.45rem;
+  font-family: var(--titre); font-weight: 750; font-stretch: 85%; font-size: 1.1rem; color: var(--encre);
+}
+/* petit cadenas dessiné en CSS */
+.verrou .verrou-titre::before {
+  content: ""; width: 0.8rem; height: 0.65rem; margin-top: 0.35rem;
+  background: var(--zinc); border-radius: 2px;
+  box-shadow: 0 -0.45rem 0 -0.12rem var(--faience), 0 -0.45rem 0 0.02rem var(--zinc);
+}
+.demo {
+  grid-column: 1 / -1; margin: 0; padding: 0.6rem 0.9rem; border-radius: 8px;
+  background: #FFF4DC; border-left: 6px solid var(--ambre); font-weight: 700;
+}
 .carnet-entete {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem;
 }
