@@ -37,11 +37,11 @@ window.VOYAGE = {
       titre: "Départ et Notre-Dame",
       etapes: [
         { heure: "8 h 30", titre: "Départ du lycée en autocar", texte: "Pause de 45 min en route (règle européenne : pause après 4 h 30 de conduite).", statut: "estimation", type: "depart" },
-        { trajet: "Autocar, environ 376 km et 3 h 48 de conduite sans pause" },
-        { heure: "≈ 13 h 15", titre: "Arrivée à l'auberge", texte: "Auberge HI Paris Yves Robert (Paris 18e). Les chambres ouvrent à 15 h : dépôt des bagages à confirmer avec l'auberge, puis pique-nique.", statut: "confirmer", type: "pause" },
-        { trajet: "Métro ligne 4, environ 33 min (départ vers 14 h)" },
+        { trajet: "Autocar, environ 377 km et 3 h 49 de conduite sans pause" },
+        { heure: "≈ 13 h 15", titre: "Arrivée à l'auberge", texte: "Auberge HI Paris Yves Robert (Paris 18e). Les chambres ouvrent à 15 h. Pique-nique avant de partir à Notre-Dame.", statut: "estimation", type: "pause" },
+        { trajet: "Départ vers 14 h. À pied jusqu'à Marcadet-Poissonniers (15 min), métro ligne 4 jusqu'à Cité (11 arrêts, 15 min), puis 3 min à pied. Environ 33 min." },
         { heure: "15 h – 16 h", titre: "Notre-Dame de Paris", texte: "Visite libre, sans prise de parole, 1 h maximum à l'intérieur. Entrée par la file sans réservation (drapeau bleu sur le parvis), environ 20 min d'attente. Chapelet à 15 h : la visite continue, en silence. Angle CIEL : le numérique au service de la reconstruction.", statut: "verifie", type: "visite" },
-        { trajet: "Métro ligne 4, environ 33 min" },
+        { trajet: "À pied jusqu'à Cité (3 min), métro ligne 4 jusqu'à Marcadet-Poissonniers, puis à pied (15 min). Environ 34 min." },
         { heure: "≈ 16 h 45", titre: "Retour à l'auberge", texte: "Installation dans les chambres, disponibles dès 15 h.", statut: "estimation", type: "pause" },
         { heure: "Soir", titre: "Dîner à l'auberge et débrief", texte: "Demi-pension, dîner servi de 19 h à 21 h.", statut: "verifie", type: "pause" }
       ]
@@ -53,21 +53,21 @@ window.VOYAGE = {
       titre: "Arts et Métiers et Cité des sciences",
       etapes: [
         { heure: "9 h 20", titre: "Départ de l'auberge", texte: "Vers le musée des Arts et Métiers.", statut: "estimation", type: "depart" },
-        { trajet: "Métro, environ 30 min" },
+        { trajet: "À pied jusqu'à Stalingrad (12 min), métro ligne 5 jusqu'à République (4 arrêts, 7 min), puis 9 min à pied. Environ 28 min." },
         { heure: "10 h – 11 h 30", titre: "Musée des Arts et Métiers", texte: "Visite guidée « La saga des télécommunications » (1 h 30, 100 € le groupe). Créneau de 10 h proposé par le musée (réponse du 30/10/2026).", statut: "verifie", type: "visite" },
-        { trajet: "Métro vers la Villette, environ 30 min (à vérifier)" },
+        { trajet: "À pied jusqu'à Réaumur-Sébastopol (5 min), métro ligne 4 jusqu'à Gare de l'Est, ligne 7 jusqu'à Porte de la Villette, puis 8 min à pied. Environ 30 min." },
         { heure: "12 h 30", titre: "Pique-nique au parc de la Villette", statut: "estimation", type: "pause" },
         {
           heure: "13 h 30 – 17 h", titre: "Cité des sciences",
           texte: "Réservation possible seulement 3 mois avant (février 2027). Billet Expositions pour un groupe de 26 à 40 personnes : 200 €, accompagnateurs inclus (expositions, une animation scientifique, une séance de planétarium). Carrefour numérique² (dès 15 ans, gratuit) et Cité des métiers ouverts le mardi après-midi.",
-          statut: "confirmer", type: "visite",
+          statut: "attente", type: "visite",
           planB: {
             titre: "Plan B : atelier aux Arts et Métiers l'après-midi",
             texte: "Si la Cité des sciences n'a pas de créneau : atelier lycée « Si un boulier m'était conté » (2 h 30, 150 € le groupe) au musée des Arts et Métiers. Même objectif : comprendre le numérique, du calcul mécanique aux calculatrices. Horaire à demander au musée.",
             statut: "verifie"
           }
         },
-        { trajet: "Métro ligne 7 puis à pied, environ 26 min" },
+        { trajet: "À pied jusqu'à Porte de la Villette (9 min), métro ligne 7 jusqu'à Stalingrad (4 arrêts, 4 min), puis 13 min à pied. Environ 26 min." },
         { heure: "≈ 17 h 45", titre: "Retour à l'auberge", statut: "estimation", type: "pause" },
         { heure: "Soir", titre: "Dîner et préparation des comptes rendus", statut: "verifie", type: "pause" }
       ]
@@ -87,7 +87,7 @@ window.VOYAGE = {
           statut: "verifie", type: "visite"
         },
         { heure: "11 h 30 – 12 h", titre: "Départ vers la Vendée", texte: "Pause de 45 min en route.", statut: "estimation", type: "depart" },
-        { trajet: "Autocar, environ 3 h 51 de conduite sans pause" },
+        { trajet: "Autocar, environ 367 km et 3 h 46 de conduite sans pause" },
         { heure: "≈ 17 h 30", titre: "Arrivée au lycée", statut: "estimation", type: "arrivee" }
       ]
     }
@@ -99,10 +99,9 @@ window.VOYAGE = {
     {
       id: "auberge", nom: "Auberge HI Paris Yves Robert", sorte: "auberge",
       quand: "Lundi soir au mercredi matin", jour: null,
-      adresse: "20 esplanade Nathalie Sarraute, 75018 Paris", acces: "Métro Marx Dormoy (ligne 12) ou La Chapelle (ligne 2)",
+      adresse: "20 esplanade Nathalie Sarraute, 75018 Paris", acces: "Métro Marcadet-Poissonniers (ligne 4) à 15 min à pied, ou Stalingrad (lignes 5 et 7) à 12 min",
       gps: [48.888674, 2.362759],
       texte: "Devis reçu le 06/11/2026 (dossier 688214), avec de la place à nos dates. Demi-pension : dîner de 19 h à 21 h, petit-déjeuner de 7 h à 10 h. Chambres de 15 h à 10 h. Simulation : aucune réservation confirmée.",
-      aConfirmer: "Dépôt des bagages le lundi en arrivant (pas de réponse dans le devis).",
       statut: "verifie"
     },
     {
@@ -125,7 +124,7 @@ window.VOYAGE = {
     {
       id: "arts-metiers", nom: "Musée des Arts et Métiers", sorte: "visite",
       quand: "Mardi 11 mai, 10 h – 11 h 30", jour: 2,
-      adresse: "60 rue Réaumur, 75003 Paris", acces: "En métro depuis l'auberge, environ 30 min",
+      adresse: "60 rue Réaumur, 75003 Paris", acces: "Métro ligne 5 depuis l'auberge, environ 28 min",
       gps: [48.865711, 2.355422],
       texte: "Sur place : sacs à dos au vestiaire des groupes, ni nourriture ni boisson dans le musée, pas de photo au flash, on ne touche pas les objets.",
       objectif: "Comprendre l'histoire des télécommunications, du télégraphe aux réseaux actuels.",
@@ -155,7 +154,7 @@ window.VOYAGE = {
       matieres: "Enseignement pro CIEL, anglais (e-LAB trilingue, niveau A2), orientation.",
       texte: "Billet Expositions groupe (26 à 40 personnes) : 200 €, accompagnateurs inclus. Carrefour numérique² : ateliers numériques et Fab Lab, dès 15 ans, gratuit.",
       aConfirmer: "Réservation possible seulement 3 mois avant (février 2027). Plan B : atelier « Si un boulier m'était conté » aux Arts et Métiers l'après-midi.",
-      statut: "confirmer"
+      statut: "attente"
     },
     {
       id: "maison-radio", nom: "Maison de la Radio et de la Musique", sorte: "visite",
