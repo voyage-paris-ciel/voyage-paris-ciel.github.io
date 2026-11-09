@@ -37,12 +37,13 @@ window.VOYAGE = {
       titre: "Départ et Notre-Dame",
       etapes: [
         { heure: "8 h 30", titre: "Départ du lycée en autocar", texte: "Pause de 45 min en route (règle européenne : pause après 4 h 30 de conduite).", statut: "estimation", type: "depart" },
-        { trajet: "Autocar, environ 369 km et 3 h 51 de conduite sans pause" },
-        { heure: "≈ 13 h 15", titre: "Arrivée à l'auberge", texte: "Le MIJE est complet à nos dates (réponse du 06/11/2026) : nouvelle auberge à choisir. Dépôt des bagages à la bagagerie (à confirmer avec la nouvelle auberge), puis pique-nique.", statut: "confirmer", type: "pause" },
-        { trajet: "À pied, environ 14 min (départ vers 14 h 20)" },
+        { trajet: "Autocar, environ 376 km et 3 h 48 de conduite sans pause" },
+        { heure: "≈ 13 h 15", titre: "Arrivée à l'auberge", texte: "Auberge HI Paris Yves Robert (Paris 18e). Les chambres ouvrent à 15 h : dépôt des bagages à confirmer avec l'auberge, puis pique-nique.", statut: "confirmer", type: "pause" },
+        { trajet: "Métro ligne 4, environ 33 min (départ vers 14 h)" },
         { heure: "15 h – 16 h", titre: "Notre-Dame de Paris", texte: "Visite libre, sans prise de parole, 1 h maximum à l'intérieur. Entrée par la file sans réservation (drapeau bleu sur le parvis), environ 20 min d'attente. Chapelet à 15 h : la visite continue, en silence. Angle CIEL : le numérique au service de la reconstruction.", statut: "verifie", type: "visite" },
-        { heure: "16 h 30", titre: "Retour à l'auberge", texte: "Heure d'accès aux chambres à confirmer avec la nouvelle auberge.", statut: "confirmer", type: "pause" },
-        { heure: "Soir", titre: "Dîner à l'auberge et débrief", texte: "Demi-pension.", statut: "verifie", type: "pause" }
+        { trajet: "Métro ligne 4, environ 33 min" },
+        { heure: "≈ 16 h 45", titre: "Retour à l'auberge", texte: "Installation dans les chambres, disponibles dès 15 h.", statut: "estimation", type: "pause" },
+        { heure: "Soir", titre: "Dîner à l'auberge et débrief", texte: "Demi-pension, dîner servi de 19 h à 21 h.", statut: "verifie", type: "pause" }
       ]
     },
     {
@@ -51,8 +52,8 @@ window.VOYAGE = {
       date: "Mardi 11 mai 2027",
       titre: "Arts et Métiers et Cité des sciences",
       etapes: [
-        { heure: "9 h 20", titre: "Départ à pied de l'auberge", texte: "Vers le musée des Arts et Métiers.", statut: "estimation", type: "depart" },
-        { trajet: "À pied, environ 23 min" },
+        { heure: "9 h 20", titre: "Départ de l'auberge", texte: "Vers le musée des Arts et Métiers.", statut: "estimation", type: "depart" },
+        { trajet: "Métro, environ 30 min" },
         { heure: "10 h – 11 h 30", titre: "Musée des Arts et Métiers", texte: "Visite guidée « La saga des télécommunications » (1 h 30, 100 € le groupe). Créneau de 10 h proposé par le musée (réponse du 30/10/2026).", statut: "verifie", type: "visite" },
         { trajet: "Métro vers la Villette, environ 30 min (à vérifier)" },
         { heure: "12 h 30", titre: "Pique-nique au parc de la Villette", statut: "estimation", type: "pause" },
@@ -66,7 +67,7 @@ window.VOYAGE = {
             statut: "verifie"
           }
         },
-        { trajet: "Métro ligne 7, environ 33 min" },
+        { trajet: "Métro ligne 7 puis à pied, environ 26 min" },
         { heure: "≈ 17 h 45", titre: "Retour à l'auberge", statut: "estimation", type: "pause" },
         { heure: "Soir", titre: "Dîner et préparation des comptes rendus", statut: "verifie", type: "pause" }
       ]
@@ -77,9 +78,9 @@ window.VOYAGE = {
       date: "Mercredi 12 mai 2027",
       titre: "Maison de la Radio et retour",
       etapes: [
-        { heure: "7 h 30", titre: "Petit-déjeuner", texte: "Horaire à confirmer avec la nouvelle auberge.", statut: "confirmer", type: "pause" },
+        { heure: "7 h 30", titre: "Petit-déjeuner", texte: "Servi de 7 h à 10 h. Les chambres sont à libérer avant 10 h.", statut: "verifie", type: "pause" },
         { heure: "8 h 15", titre: "Chargement des bagages dans l'autocar", statut: "estimation", type: "depart" },
-        { trajet: "Autocar vers Paris 16e, 38 à 60 min le matin" },
+        { trajet: "Autocar vers Paris 16e, environ 45 min (prévoir jusqu'à 1 h le matin)" },
         {
           heure: "10 h – 11 h 30", titre: "Maison de la Radio et de la Musique",
           texte: "Visite « Histoire et architecture » (1 h 30, 120 € la classe), avec au moins un studio de radio. Créneau confirmé par Radio France le 30/10/2026.",
@@ -96,17 +97,18 @@ window.VOYAGE = {
   // (api-adresse.data.gouv.fr, vérifié le 06/11/2026). « ouverture » = quand la mission se débloque.
   lieux: [
     {
-      id: "auberge", nom: "Auberge (à choisir)", sorte: "auberge",
+      id: "auberge", nom: "Auberge HI Paris Yves Robert", sorte: "auberge",
       quand: "Lundi soir au mercredi matin", jour: null,
-      adresse: "Prévue au MIJE Fourcy, 6 rue de Fourcy, 75004 Paris", acces: "Métro Saint-Paul (ligne 1) ou Pont Marie (ligne 7)",
-      gps: [48.854769, 2.359165],
-      texte: "Le MIJE nous a répondu le 06/11/2026 : plus de place à nos dates. Une nouvelle auberge est en cours de choix ; les temps de trajet à pied depuis l'auberge seront alors recalculés.",
-      statut: "confirmer"
+      adresse: "20 esplanade Nathalie Sarraute, 75018 Paris", acces: "Métro Marx Dormoy (ligne 12) ou La Chapelle (ligne 2)",
+      gps: [48.888674, 2.362759],
+      texte: "Devis reçu le 06/11/2026 (dossier 688214), avec de la place à nos dates. Demi-pension : dîner de 19 h à 21 h, petit-déjeuner de 7 h à 10 h. Chambres de 15 h à 10 h. Simulation : aucune réservation confirmée.",
+      aConfirmer: "Dépôt des bagages le lundi en arrivant (pas de réponse dans le devis).",
+      statut: "verifie"
     },
     {
       id: "notre-dame", nom: "Notre-Dame de Paris", sorte: "visite",
       quand: "Lundi 10 mai, 15 h – 16 h", jour: 1,
-      adresse: "Parvis Notre-Dame, 75004 Paris", acces: "À pied depuis l'auberge, environ 14 min",
+      adresse: "Parvis Notre-Dame, 75004 Paris", acces: "Métro ligne 4 depuis l'auberge, environ 33 min",
       gps: [48.853206, 2.348700],
       objectif: "Comprendre comment le numérique aide à reconstruire et à documenter un monument.",
       mission: "Repérer 3 éléments de la cathédrale. Après la visite, chercher quel outil numérique a servi pour l'un d'eux (scan 3D, maquette numérique).",
@@ -123,7 +125,7 @@ window.VOYAGE = {
     {
       id: "arts-metiers", nom: "Musée des Arts et Métiers", sorte: "visite",
       quand: "Mardi 11 mai, 10 h – 11 h 30", jour: 2,
-      adresse: "60 rue Réaumur, 75003 Paris", acces: "À pied depuis l'auberge, environ 23 min",
+      adresse: "60 rue Réaumur, 75003 Paris", acces: "En métro depuis l'auberge, environ 30 min",
       gps: [48.865711, 2.355422],
       texte: "Sur place : sacs à dos au vestiaire des groupes, ni nourriture ni boisson dans le musée, pas de photo au flash, on ne touche pas les objets.",
       objectif: "Comprendre l'histoire des télécommunications, du télégraphe aux réseaux actuels.",
@@ -158,7 +160,7 @@ window.VOYAGE = {
     {
       id: "maison-radio", nom: "Maison de la Radio et de la Musique", sorte: "visite",
       quand: "Mercredi 12 mai, 10 h – 11 h 30", jour: 3,
-      adresse: "116 avenue du Président-Kennedy, 75016 Paris", acces: "En autocar depuis l'auberge, 38 à 60 min",
+      adresse: "116 avenue du Président-Kennedy, 75016 Paris", acces: "En autocar depuis l'auberge, environ 45 min (jusqu'à 1 h le matin)",
       gps: [48.852149, 2.279529],
       objectif: "Comprendre comment un programme de radio est produit et diffusé.",
       mission: "Dessiner le trajet du son : micro, régie, diffusion. Noter 2 métiers techniques rencontrés.",
