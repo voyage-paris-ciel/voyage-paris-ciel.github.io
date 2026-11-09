@@ -6,7 +6,7 @@
   La carte des lieux (OpenStreetMap) a besoin du réseau : elle n'est pas gardée.
 */
 
-const CACHE = "voyage-paris-v2";
+const CACHE = "voyage-paris-v3";
 const FICHIERS = [
   "./",
   "index.html",
